@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro"
+
+export async function getStaticPaths() {
+  return [
+    {
+      // params prop has to be the same on the file name ex. [user].astro
+      params: { user: "user1" },
+      props: { name: "user1" },
+    },
+  ]
+}
+
+const { user } = Astro.params
+const { name } = Astro.props
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1 class="bg-zinc-600 p-4 font-bold">Hello {name}! on { user } page!</h1>
+  </main>
+</Layout>

@@ -1,0 +1,36 @@
+---
+import Counter from "../components/Counter"
+import Layout from "../layouts/Layout.astro"
+import { Image } from "astro:assets"
+
+const message = "Welcome to about page!"
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1 class="bg-zinc-600 p-4 font-bold">{message}</h1>
+    <!-- this is a really big image when we use the <img> tag. from 800kb to just 145b!! -->
+    <!-- <img src="/about-bg.jpg" alt="" class="max-w-3xl mx-auto block w-full"> -->
+    <Image
+      loading="lazy"
+      src="/about-bg.jpg"
+      alt=""
+      class="max-w-3xl mx-auto block w-full"
+      width={100}
+      height={100}
+    />
+    <p class="h-screen bg-gray-200">
+      Counter component will dl its js when its visible to the viewport. See
+      inspect > network
+    </p>
+    <!-- astro render paages without js, so this react component will not work. 
+		you need to label it as client:load to tell that this is an interactive component -->
+    <!-- you can also label it as client:visible, and it dl its js when its visible to the viewport -->
+    <Counter client:visible />
+  </main>
+  <style>
+    h1 {
+      color: white;
+    }
+  </style>
+</Layout>

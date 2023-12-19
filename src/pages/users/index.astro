@@ -1,0 +1,37 @@
+---
+import Layout from "../../layouts/Layout.astro"
+
+interface User {
+  login: string
+  avatar_url: string
+  id: number
+}
+
+// astro has pagination out of the box that you can use
+
+const res = await fetch("https://api.github.com/users")
+const users: User[] = await res.json()
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1 class="bg-zinc-600 p-4 font-bold">Welcome to users page</h1>
+    <section class="grid grid-cols-3 gap-3">
+      {
+        users.map((user) => (
+          <div class="rounded-lg bg-gray-200 shadow-lg flex flex-col gap-2 items-center p-6">
+            <div class="w-[100px] aspect-square rounded-full overflow-hidden">
+              <img
+                src={user.avatar_url}
+                alt={user.login}
+                class="w-full h-full object-cover object-center"
+              />
+            </div>
+            <p class="text-purple-600 font-bold">{user.id}</p>
+            <p class="text-2xl font-bold">{user.login}</p>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</Layout>
